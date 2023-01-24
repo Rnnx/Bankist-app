@@ -60,96 +60,21 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-// --------------------
-// Lectures
-// --------------------
+const displayMovements = function (movements) {
+  containerMovements.innerHTML = '';
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+  movements.forEach(function (mov, i) {
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+    const html = `        
+    <div class="movements__row">
+      <div class="movements__type movements__type--${type}">${
+      i + 1
+    } ${type}</div>
+      <div class="movements__value">${mov}€</div>
+    </div>`;
 
-// slice
-let arr = ['a', 'b', 'c', 'd', 'e'];
-console.log(arr.slice(2));
-console.log(arr.slice(2, 4));
-console.log(arr.slice(-2));
-console.log(arr.slice(-1));
-console.log(arr.slice(1, -2));
-// getting a shallow copy of an array with slice
-console.log(arr.slice());
-
-console.log('----------');
-// splice (changes (mutates) the original array)
-console.log(arr.splice(-1)); // deletes the last element of the array
-console.log(arr);
-
-console.log('----------');
-// reverse (mutates the original array)
-arr = ['a', 'b', 'c', 'd', 'e'];
-const arr2 = ['j', 'i', 'h', 'g', 'f'];
-
-console.log(arr);
-console.log(arr2);
-console.log(arr2.reverse());
-
-console.log('----------');
-// concat
-const letters = arr.concat(arr2);
-console.log(letters);
-console.log([...arr, ...arr2]); // the same result as above
-
-console.log('----------');
-// join
-console.log(letters.join(' - '));
-
-console.log('----------');
-// new 'at' method (also works with strings)
-const dArr = [23, 11, 64];
-console.log(dArr[0]); // the old way getting a first element of the array
-console.log(dArr.at(0)); // 'at' method
-
-// the usefulness of the 'at' method is getting the last element of the array
-console.log(dArr[dArr.length - 1]); // the old way
-console.log(dArr.at(-1));
-
-// --------------------
-// Fore each
-// --------------------
-const exampleMovements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
-// note! forEach() doesn't have the 'break' or 'continue' methods. It'll alway loop through the whole array
-exampleMovements.forEach(function (mov, i, arr) {
-  // names or parameters don't matter, but the order does!
-  if (mov > 0) {
-    console.log(`Movement ${i + 1}: You deposited ${mov}`);
-  } else {
-    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(mov)}`);
-  }
-});
-
-// getting a courter from forEach()
-exampleMovements.forEach(function (movement) {});
-
-// forEach() with maps
-const exampleCurrencies = new Map([
-  ['USD', 'United States Dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound Sterling'],
-]);
-
-exampleCurrencies.forEach(function (currentValue, key, map) {
-  console.log(`${key}: ${currentValue}`);
-});
-
-// forEach() with sets
-const uniqueCurrencies = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
-console.log(uniqueCurrencies);
-
-// current value in sets is the same as key!
-uniqueCurrencies.forEach(function (currentValue, key, set) {
-  console.log(`${key}: ${currentValue}`);
-});
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+displayMovements(account1.movements);
